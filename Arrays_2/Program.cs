@@ -161,12 +161,24 @@ namespace Arrays_2
 				
 			}
 
-			Console.WriteLine($"Сумма элементов массива: {ragged_arr.Cast<int>().Sum()}");
-			Console.WriteLine($"Средне-арифметическое элементов массива: {ragged_arr.Cast<int>().Average()}");
-			Console.WriteLine($"Минимальное значение в массиве: {ragged_arr.Cast<int>().Min()}");
-			Console.WriteLine($"Максимальное значение в массиве: {ragged_arr.Cast<int>().Max()}");
+			int sum = 0;
+			int count = 0;
+			foreach(int[] i in ragged_arr)
+			{
+			   if (i != null)
+			   {
+			     sum += i.Sum();
+			     count += i.Length;
+			   }
+			}
+			Console.WriteLine($"Сумма элементов массива: {sum}");
+			Console.WriteLine($"Средне-арифметическое элементов массива: {(double)sum / count}");
+			Console.WriteLine($"Минимальное значение в массиве: {min}");
+			Console.WriteLine($"Максимальное значение в массиве: {max}");
 			*/
 			#endregion RAGGED_ARRAY
+
+			#region ENUMS
 
 			Season season = Season.Spring;
 			Console.WriteLine(season);
@@ -176,7 +188,28 @@ namespace Arrays_2
 				Console.WriteLine(i);
 			}
 
+			string[] dayName = Enum.GetNames(typeof(Week));
+			int[] dayNumbers = (int[])Enum.GetValues(typeof(Week));
+			for(int i = 0; i < dayNumbers.Length; i++)
+			{
+				Console.WriteLine($"Name: {dayName[i]} \t- Value: {dayNumbers[i]}");
+			}
+			Console.WriteLine(delimiter);
+
+			string[] distName  = Enum.GetNames(typeof(DistanceFromSun));
+			ulong[] distValue = (ulong[])Enum.GetValues(typeof(DistanceFromSun));
+			
+			// получаем имена и значения:
+			for(int i =0; i < distName.Length; i++)
+			{
+				Console.WriteLine($"Name: {distName[i]} \t- Value: {distValue[i]}");
+			}
+
+			Console.WriteLine($"Type: {Enum.GetUnderlyingType(typeof(DistanceFromSun))}");
+			
 		}
+		const string delimiter = "\n--------------------------------------------------------------------\n";
+
 		enum Season
 		{
 			Winter, Spring, Summer, Autumn
@@ -192,5 +225,19 @@ namespace Arrays_2
 			Saturday = 6,
 			
 		};
+
+		enum DistanceFromSun : ulong
+		{
+			Sun = 0,
+			Mercury = 57900000,
+			Venus = 108200000,
+			Earth = 149600000,
+			Mars = 227900000,
+			Jupiter = 7783000000,
+			Saturn = 1427000000,
+			Uranus = 2870000000,
+			Neptune = 4496000000,
+			Pluto = 594600000
+		}
 	}
 }
